@@ -4,6 +4,7 @@ run "npm install"
 
 
 run WampServer and create the MySQL database "db_garage"
+
 Go to database/db.js and un-comment line 196: "dbinfo.sync({ force: true });"
 
 Run "npm start" and it will synchronize the database
