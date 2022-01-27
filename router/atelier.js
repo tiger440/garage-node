@@ -3,7 +3,7 @@ const { atelier } = require("../database/db");
 const router = express.Router();
 const db = require("../database/db");
 
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
   db.atelier
     .findOne({
       where: { nom: req.body.nom, garageId: req.body.garageId },

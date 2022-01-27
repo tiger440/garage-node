@@ -4,7 +4,7 @@ const router = express.Router();
 
 const db = require("../database/db");
 
-router.get("/findAll", (req, res) => {
+router.get("/", (req, res) => {
   db.garage
     .findAll({
       attributes: {
@@ -37,7 +37,7 @@ router.get("/findAll", (req, res) => {
     });
 });
 
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
   db.garage
     .create(req.body)
     .then((garage) => {
@@ -48,7 +48,7 @@ router.post("/new", (req, res) => {
     });
 });
 
-router.get("/findBy/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   db.garage
     .findOne({
       attributes: {

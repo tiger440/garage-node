@@ -37,7 +37,7 @@ const db = require("../database/db");
 /************************************** Start client router ****************************************************
  *****************************************************************************************************************/
 
-router.get("/All", (req, res) => {
+router.get("/", (req, res) => {
   db.client
     .findAll({
       attributes: {
@@ -80,10 +80,10 @@ router.post("/login", (req, res) => {
           });
           res.json({ token: token });
         } else {
-          res.status(502).json("Email or password is bad ");
+          res.status(502).json("Wrong Email or password");
         }
       } else {
-        res.json("client not found");
+        res.status(404).json("client not found");
       }
     })
     .catch((err) => {
@@ -92,7 +92,7 @@ router.post("/login", (req, res) => {
 });
 
 // add new client and voiture
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
   const clientdata = {
     nom: req.body.nom,
     prenom: req.body.prenom,
@@ -175,16 +175,16 @@ router.post("/new", (req, res) => {
                                   });
                               })
                               .catch((err) => {
-                                res.json(err);
+                                res.status(409).json(err);
                               });
                           }
                         })
                         .catch((err) => {
-                          res.json(err);
+                          res.json(err);;
                         });
                     })
                     .catch((err) => {
-                      res.json(err);
+                      res.status(409).json(err);
                     });
                 } else {
                   cardata.marqueId = smarque.id;
@@ -209,7 +209,7 @@ router.post("/new", (req, res) => {
                         });
                     })
                     .catch((err) => {
-                      res.json(err);
+                      res.status(404).json(err + ("client cannot be found"));
                     });
                 }
               })
@@ -223,13 +223,13 @@ router.post("/new", (req, res) => {
       }
     })
     .catch((err) => {
-      res.json(err);
+      res.status(404).json(err + ("client cannot be found"));
     });
 });
 
 // update client in params his id
 //  exmple : localhost:{your port}/{you préfix}/{name_client}/{id }
-router.put("/update/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   // find one client
   db.client
     .findOne({
@@ -271,7 +271,7 @@ router.put("/update/:id", (req, res) => {
     });
 });
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   db.client
     .findOne({
       where: { id: req.params.id },
@@ -301,36 +301,5 @@ router.delete("/delete/:id", (req, res) => {
     });
 });
 
-router.get("/getAll", (req, res) => {
-  db.client
-    .findAll({
-      attributes: {
-        include: [],
-        // don't need to show this filed
-        exclude: ["updated_at", "created_at"],
-      },
-      include: [
-        {
-          model: db.voiture,
-          include: [
-            {
-              model: db.marque,
-            },
-          ],
-          attributes: {
-            include: [],
-            // don't need to show this filed
-            exclude: ["clientId", "updated_at", "created_at"],
-          },
-        },
-      ],
-    })
-    .then((clients) => {
-      res.json({ clients: clients });
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
 
 module.exports = router;

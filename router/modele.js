@@ -2,11 +2,7 @@ const express = require('express')
 const router = express.Router();
 const db = require("../database/db");
 
-const express = require("express");
-const router = express.Router();
-const db = require("../database/db");
-
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
     console.log(req.body);
     db.marque.findOne({
             where: { id: req.body.marque },
@@ -40,7 +36,7 @@ router.post("/new", (req, res) => {
         });
 })
 
-router.get("/getByMarque/:marque", (req, res) => {
+router.get("/:marque", (req, res) => {
     db.modele
         .findOne({
             where: { marqueId: req.params.marque },

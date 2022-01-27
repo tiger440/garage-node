@@ -74,7 +74,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.get("/findByGarageID/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   db.emp
     .findAll({
       where: { garageId: req.params.id },
@@ -92,7 +92,7 @@ router.get("/findByGarageID/:id", (req, res) => {
     });
 });
 // update employe by id
-router.put("/update/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   // get employe one by id
   db.emp
     .findOne({ where: { id: req.params.id } })
@@ -118,29 +118,7 @@ router.put("/update/:id", (req, res) => {
     });
 });
 
-/* router.delete("/delete/:id", (req, res) => {
-  db.emp
-    .findOne({ where: { id: req.params.id } })
-    .then((emp) => {
-      if (emp) {
-        emp
-          .destroy()
-          .then(() => {
-            res.json({ stauts: "employe deleted" });
-          })
-          .catch((err) => {
-            res.json(err);
-          });
-      } else {
-        res.json("employe not found");
-      }
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-}); */
-
-router.delete("/delete/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   db.emp
     .destroy({
       where: { id: req.params.id },
@@ -157,7 +135,7 @@ router.delete("/delete/:id", (req, res) => {
     });
 });
 
-router.get("/findByEmail/:email", (req, res) => {
+router.get("/:email", (req, res) => {
   db.emp
     .findOne({ where: { email: req.params.email } })
     .then((employe) => {
@@ -172,7 +150,7 @@ router.get("/findByEmail/:email", (req, res) => {
     });
 });
 
-router.get("/all", (req, res) => {
+router.get("/", (req, res) => {
   db.emp
     .findAll()
     .then((employes) => {

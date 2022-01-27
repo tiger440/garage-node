@@ -8,7 +8,7 @@ const express = require("express"),
 
 dotenv.config();
 
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
   var token = randtoken.generate(16);
   const hash = bcrypt.hashSync(token, 10);
   const clientdata = {
@@ -1187,7 +1187,7 @@ router.post("/new", (req, res) => {
     });
 });
 
-router.get("/findBy/:numero_plaque", (req, res) => {
+router.get("/:numero_plaque", (req, res) => {
   db.voiture
     .findOne({
       include: [

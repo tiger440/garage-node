@@ -2,7 +2,7 @@ const express = require("express"),
     router = express.Router(),
     db = require("../database/db");
 
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
     const infomarque = { marque: req.body.marque };
     const infomodele = {
         modele: req.body.modele,
@@ -73,7 +73,7 @@ router.post("/new", (req, res) => {
         });
 });
 
-router.get("/getAll", (req, res) => {
+router.get("/", (req, res) => {
     db.marque
         .findAll({
             include: [{

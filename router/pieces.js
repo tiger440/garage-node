@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const db = require("../database/db");
 
-router.post('/new', (req, res) => {
+router.post('/', (req, res) => {
     const infopieces = {
         ref_piece: req.body.ref_piece,
         name: req.body.name,
